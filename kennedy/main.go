@@ -22,7 +22,7 @@ func (d *device) Write(p []byte) (l int, err error) {
 
 func main() {
 	d := &device{}
-	// w := d									// logger that blocks
+	// w := d // logger that blocks
 	w := logger.New(d, 10) // logger that drops lines
 
 	for i := 0; i < 10; i++ {
