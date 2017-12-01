@@ -114,7 +114,7 @@ func useChannels(cap, workers int) {
 	wg.Add(len(b.actions))
 	done := make(chan int)
 	in := make(chan int, cap)
-	enter := in
+	latteOrder := in
 	for _, a := range b.actions {
 		out := make(chan int, cap)
 		go func(in, out chan int, a *action) {
@@ -144,24 +144,13 @@ func useChannels(cap, workers int) {
 				case <-done:
 					wg.Done()
 					return
-				case enter <- worker:
+				case latteOrder <- worker:
+				case <-latteReady:
+					b.count.inc()
 				}
 			}
 		}(worker)
 	}
-
-	wg.Add(1)
-	go func() {
-		for {
-			select {
-			case <-done:
-				wg.Done()
-				return
-			case <-latteReady:
-				b.count.inc()
-			}
-		}
-	}()
 
 	time.Sleep(time.Duration(testSeconds) * time.Second)
 	result := b.count.count
