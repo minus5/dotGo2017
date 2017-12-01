@@ -183,7 +183,7 @@ func main() {
 	}
 
 	fmt.Println("CHANNELS")
-	for capacity := 1; capacity < 10; capacity++ {
+	for capacity := 0; capacity < 10; capacity++ {
 		useChannels(capacity, 1)
 	}
 }
