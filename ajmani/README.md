@@ -1,9 +1,8 @@
-Sameer Ajmani: Simulating a real-world system in Go
+## Sameer Ajmani: Simulating a real-world system in Go
 
-Postupak pravljenja napitka se može podijeliti u 4 stagea (grindBeans, makeEspresso, steamMilk, makeLatte). 
+Postupak pravljenja napitka se može podijeliti u 4 _stagea_ (grindBeans, makeEspresso, steamMilk, makeLatte). 
 
-Mutex lock na cijeli napitak
----
+### Mutex lock na cijeli napitak
 
 Ako stavimo jedan lock na cijeli postupak pravljenja napitka tada je pravljenje napitka usko grlo. U svakom trenutku se može raditi samo na jednom napitku bez obzira na broj gorutina. Ukupan broj napravljenih napitaka ovisi samo o ukupnom vremenu izvođenja pokusa. Dodavanje gorutina nema utjecaj na konačan ishod jer sve gorutine čekaju na isti zaključani resurs.
 
@@ -19,9 +18,9 @@ workers: 8 RESULT: 34064
 workers: 9 RESULT: 33561
 ```
 
-Mutex lock na svaki stage zasebno
----
-S obzirom da postupak ima 4 stagea moguće je da 4 gorutine istovremeno rade svaka na svom piću ali na drugom stageu. U ovakvom se okruženju gorutine samoinicijativno preslože u pipeline. Broj pića raste linearno sa brojem dodanih gorutina dok se ne dođe do 4 gorutine. Svaka sljedeća gorutina ima vrlo malen utjecaj na konačan broj proizvedenih napitaka.
+### Mutex lock na svaki stage zasebno
+
+S obzirom da postupak ima 4 _stagea_ moguće je da 4 gorutine istovremeno rade svaka na svom piću ali na drugom _stageu_. U ovakvom se okruženju gorutine samoinicijativno preslože u pipeline. Broj pića raste linearno sa brojem dodanih gorutina dok se ne dođe do 4 gorutine. Svaka sljedeća gorutina ima vrlo malen utjecaj na konačan broj proizvedenih napitaka.
 
 ```
 workers: 1 RESULT: 34276
@@ -35,14 +34,13 @@ workers: 8 RESULT: 96692
 workers: 9 RESULT: 96950
 ```
 
-Unbuffered channel
----
-Za svaki stage smo napravili ulazni kanal (na kojem stage primi task) i izlazni kanal (na kojeg stage pošalje rezultat). Efekt je vrlo sličan pipelineu koji se dogodi sa mutexima. Ipak, rezultat je nešto manji jer svaki stage mora čekati da sljedeći stage preuzme task da bi nastavio raditi. U usporedbi sa kafićem to bi značilo da jedan konobar mora držati napitak u ruci dok je drugi konobar ne preuzme da bi mogao raditi na sljedećem napitku.
+### Unbuffered channel
 
-Buffered channel
----
+Za svaki _stage_ smo napravili ulazni kanal (na kojem _stage_ primi task) i izlazni kanal (na kojeg _stage_ pošalje rezultat sljedećem _stageu_). Efekt je vrlo sličan pipelineu koji se dogodi sa mutexima. Ipak, rezultat je nešto lošiji jer svaki _stage_ mora čekati da sljedeći _stage_ preuzme task da bi nastavio raditi. U usporedbi sa kafićem to bi značilo da jedan konobar mora držati napitak u ruci dok ga drugi konobar ne preuzme da bi mogao nastaviti raditi na sljedećem napitku.
 
-Buffered channel ispravlja nedostatak iz proslig zadatka tako što omogući stageu da ostavi rezultat u buffered kanalu i nastavi raditi na sljdećem zadatku. U kafiću bi to bio stol na kojeg konobar može ostaviti neki broj napitaka dok ga drugi konobar ne uzme. 
+### Buffered channel
+
+Buffered channel ispravlja nedostatak iz prošlog zadatka tako što omogući _stageu_ da ostavi rezultat u buffered kanalu i nastavi raditi na sljedećem zadatku. U kafiću bi buffered channel bio stol na kojeg konobar može ostaviti neki broj (capacity) napitaka dok ga drugi konobar ne uzme. 
 
 ```
 cap: 0 workers: 1 RESULT: 76132  // unbuffered channel, lošije od mutexa
@@ -56,3 +54,5 @@ cap: 7 workers: 1 RESULT: 94527
 cap: 8 workers: 1 RESULT: 85576
 cap: 9 workers: 1 RESULT: 94764  // buffered channel, slično mutexima
 ```
+
+Povećanje broja workera nema utjecaja; jedan worker gura taskove u kanal čim ima mjesta u kanalu.
