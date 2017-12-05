@@ -1,10 +1,14 @@
 ## Sameer Ajmani: Simulating a real-world system in Go
 
-Postupak pravljenja napitka se može podijeliti u 4 _stagea_ (grindBeans, makeEspresso, steamMilk, makeLatte). 
+Originalni slideovi s predavanja dostupni [ovdje](https://speakerdeck.com/sajmani/simulating-a-real-world-system-in-go).
+
+Postupak pravljenja napitka se može podijeliti u 4 _stagea_. 
+
+<img src="./latte.png" />
 
 ### Mutex lock na cijeli napitak
 
-Ako stavimo jedan lock na cijeli postupak pravljenja napitka tada je pravljenje napitka usko grlo. U svakom trenutku se može raditi samo na jednom napitku bez obzira na broj gorutina. Ukupan broj napravljenih napitaka ovisi samo o ukupnom vremenu izvođenja pokusa. Dodavanje gorutina nema utjecaj na konačan ishod jer sve gorutine čekaju na isti zaključani resurs.
+Ako stavimo jedan lock na cijeli postupak pravljenja napitka tada je pravljenje napitka usko grlo. U svakom trenutku se može raditi **samo na jednom** napitku bez obzira na broj gorutina. Ukupan broj napravljenih napitaka ovisi samo o ukupnom vremenu izvođenja pokusa. Dodavanje gorutina nema utjecaj na konačan ishod jer sve gorutine čekaju na isti zaključani resurs.
 
 ```
 workers: 1 RESULT: 34664
@@ -20,7 +24,7 @@ workers: 9 RESULT: 33561
 
 ### Mutex lock na svaki stage zasebno
 
-S obzirom da postupak ima 4 _stagea_ moguće je da 4 gorutine istovremeno rade svaka na svom piću ali na drugom _stageu_. U ovakvom se okruženju gorutine samoinicijativno preslože u pipeline. Broj pića raste linearno sa brojem dodanih gorutina dok se ne dođe do 4 gorutine. Svaka sljedeća gorutina ima vrlo malen utjecaj na konačan broj proizvedenih napitaka.
+S obzirom da postupak ima 4 _stagea_ moguće je da 4 gorutine istovremeno rade svaka na svom piću ali na drugom _stageu_. U ovakvom se okruženju gorutine **samoinicijativno preslože u pipeline**. Broj pića raste linearno sa brojem dodanih gorutina dok se ne dođe do 4 gorutine. Svaka sljedeća gorutina ima vrlo malen utjecaj na konačan broj proizvedenih napitaka.
 
 ```
 workers: 1 RESULT: 34276
@@ -38,11 +42,11 @@ workers: 9 RESULT: 96950
 
 ### Unbuffered channel
 
-Za svaki _stage_ smo napravili ulazni kanal (na kojem _stage_ primi task) i izlazni kanal (na kojeg _stage_ pošalje rezultat sljedećem _stageu_). Efekt je vrlo sličan pipelineu koji se dogodi sa mutexima. Ipak, rezultat je nešto lošiji jer svaki _stage_ mora čekati da sljedeći _stage_ preuzme task da bi nastavio raditi. U usporedbi sa kafićem to bi značilo da jedan konobar mora držati napitak u ruci dok ga drugi konobar ne preuzme da bi mogao nastaviti raditi na sljedećem napitku.
+Za svaki _stage_ smo napravili ulazni kanal (na kojem _stage_ primi task) i izlazni kanal (na kojeg _stage_ pošalje rezultat sljedećem _stageu_). Efekt je vrlo sličan pipelineu koji se dogodi sa mutexima. Ipak, rezultat je **nešto lošiji** od mutexa jer svaki _stage_ **mora čekati** da sljedeći _stage_ preuzme task da bi nastavio raditi. U usporedbi sa kafićem to bi značilo da jedan konobar mora držati napitak u ruci dok ga drugi konobar ne preuzme da bi mogao nastaviti raditi na sljedećem napitku.
 
 ### Buffered channel
 
-Buffered channel ispravlja nedostatak iz prošlog zadatka tako što omogući _stageu_ da ostavi rezultat u buffered kanalu i nastavi raditi na sljedećem zadatku. U kafiću bi buffered channel bio stol na kojeg konobar može ostaviti neki broj (capacity) napitaka dok ga drugi konobar ne uzme. 
+Buffered channel ispravlja nedostatak iz prošlog zadatka tako što omogući _stageu_ da **ostavi rezultat u buffered kanalu** i nastavi raditi na sljedećem zadatku. U kafiću bi buffered channel bio stol na kojeg konobar može ostaviti neki broj (capacity) napitaka dok ga drugi konobar ne uzme. 
 
 ```
 cap: 0 workers: 1 RESULT: 76132  // unbuffered channel, lošije od mutexa
@@ -57,6 +61,5 @@ cap: 8 workers: 1 RESULT: 85576
 cap: 9 workers: 1 RESULT: 94764  // buffered channel, slično mutexima
 ```
 
-Povećanje broja workera nema utjecaja; jedan worker gura taskove u kanal čim ima mjesta u kanalu.
-
 <img src="./throughput.png" width="400" />
+
