@@ -1,6 +1,11 @@
 # Konferencija dotGo 2017, Pariz
 
-O konferenciji sam ranije napisao članak za [netokraciju](http://www.netokracija.com/dotgo-pariz-2017-142953). Tamo sam više pisao o formi, ovdje ću više o sadržaju.
+Agenda:
+
+- o konferenciji (i dot serijalu)
+- workshop i meetupi
+- pregled održanih predavanja
+- detaljnija analiza predavanja (code): [Ajmani](./ajmani), [Kennedy](./kennedy)
 
 ## Gobot workshop
 
@@ -171,3 +176,4 @@ Može li Go u tom segmentu konkurirati postojećim .NET ili  Java frameworcima? 
 
 - [Simulating a real-world system in Go - Sameer Ajmani](./ajmani/)
 - [Behavior Of Channels - William Kennedy](./kennedy/)
+- članak o konferenciji na [netokraciji](http://www.netokracija.com/dotgo-pariz-2017-142953)
