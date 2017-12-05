@@ -6,6 +6,8 @@ O konferenciji sam ranije napisao članak za [netokraciju](http://www.netokracij
 
 Na [workshopu](https://www.meetup.com/Golang-Paris/events/244553942/) je sudjelovalo 20tak ljudi. Atmosfera gotovo identična Golang meetupima u Zagrebu. Tema workshopa je bila [gobot](https://gobot.io/) paket koji omogućava komunikaciju sa mnoštovom remote uređaja koristeći Go. Workshop je vodio [Ron Evans](https://twitter.com/deadprogram), jedan od autora paketa.
 
+[Ovdje](https://github.com/hybridgroup/gobot-dotgo-2017) je source s kojim smo se igrali. Na workshopu smo isprobali [Arduino](https://gobot.io/documentation/platforms/arduino/) (i neke njegove pluginove), [Sphero](https://gobot.io/documentation/platforms/sphero/), [Ollie](https://gobot.io/documentation/platforms/ollie/) i razne [dronove](https://gobot.io/documentation/platforms/bebop/) kojima smo upravljali pomoću joysticka (sve to koristeći Go).
+
 <img src="./photos/workshop.jpg" />
 <img src="./photos/arduino.jpg" />
 <img src="./photos/ollie.jpg" />
