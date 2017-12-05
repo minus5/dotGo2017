@@ -166,3 +166,8 @@ Može li Go u tom segmentu konkurirati postojećim .NET ili  Java frameworcima? 
 **Blake Mizerany**, koji je inače bio i MC konferencije, predstavlja svoju platformu [backplane.io](https://www.backplane.io/). Upravo su dobili investiciju. Backplane is a managed service that unifies discovery, routing, and load balancing for web servers written in any language, running in any cloud or datacenter.
 
 <img src="./photos/blake.jpg" />
+
+### Detaljnije o predavanjima
+
+- [Simulating a real-world system in Go - Sameer Ajmani](./ajmani/)
+- [Behavior Of Channels - William Kennedy](./kennedy/)
