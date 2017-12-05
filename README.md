@@ -167,7 +167,7 @@ Može li Go u tom segmentu konkurirati postojećim .NET ili  Java frameworcima? 
 
 <img src="./photos/blake.jpg" />
 
-### Detaljnije o predavanjima
+## Detaljnije o predavanjima
 
 - [Simulating a real-world system in Go - Sameer Ajmani](./ajmani/)
 - [Behavior Of Channels - William Kennedy](./kennedy/)
