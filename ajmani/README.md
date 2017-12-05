@@ -34,6 +34,8 @@ workers: 8 RESULT: 96692
 workers: 9 RESULT: 96950
 ```
 
+<img src="./pipeline.png" />
+
 ### Unbuffered channel
 
 Za svaki _stage_ smo napravili ulazni kanal (na kojem _stage_ primi task) i izlazni kanal (na kojeg _stage_ pošalje rezultat sljedećem _stageu_). Efekt je vrlo sličan pipelineu koji se dogodi sa mutexima. Ipak, rezultat je nešto lošiji jer svaki _stage_ mora čekati da sljedeći _stage_ preuzme task da bi nastavio raditi. U usporedbi sa kafićem to bi značilo da jedan konobar mora držati napitak u ruci dok ga drugi konobar ne preuzme da bi mogao nastaviti raditi na sljedećem napitku.
@@ -56,3 +58,5 @@ cap: 9 workers: 1 RESULT: 94764  // buffered channel, slično mutexima
 ```
 
 Povećanje broja workera nema utjecaja; jedan worker gura taskove u kanal čim ima mjesta u kanalu.
+
+<img src="./throughput.png" width="400" />

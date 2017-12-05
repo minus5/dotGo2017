@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/mprcela/dotGo2017/kennedy/logger"
+	"github.com/minus5/dotGo2017/kennedy/logger"
 )
 
 type device struct {
