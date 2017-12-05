@@ -8,10 +8,10 @@ Postupak pravljenja napitka se može podijeliti u 4 _stagea_.
 
 ### Mutex lock na cijeli napitak
 
-Ako stavimo jedan lock na cijeli postupak pravljenja napitka tada je pravljenje napitka usko grlo. U svakom trenutku se može raditi **samo na jednom** napitku bez obzira na broj gorutina. Ukupan broj napravljenih napitaka ovisi samo o ukupnom vremenu izvođenja pokusa. Dodavanje gorutina nema utjecaj na konačan ishod jer sve gorutine čekaju na isti zaključani resurs.
+Ako stavimo jedan lock na cijeli postupak pravljenja napitka tada je pravljenje napitka usko grlo. U svakom trenutku se može raditi **samo na jednom** napitku bez obzira na broj gorutina. Ukupan broj napravljenih napitaka ovisi samo o ukupnom vremenu izvođenja pokusa. Dodavanje gorutina nema utjecaj na konačan ishod jer **sve gorutine čekaju na isti zaključani resurs**.
 
 ```
-workers: 1 RESULT: 34664
+workers: 1 RESULT: 34664 // ukupan broj napitaka ne ovisi o broju gorutina
 workers: 2 RESULT: 34783
 workers: 3 RESULT: 34326
 workers: 4 RESULT: 34537
