@@ -53,7 +53,7 @@ Kasnije sam malo popričao s njim; proizvod je još miljama daleko od ozbiljnije
 
 ### Goland IDE, JetBrains - Florin Patan
 
-[Komercijalni IDE](https://www.jetbrains.com/go/). Predstavili su dosta featurea. Zapele su mi za oko opcije find type which implements interface i obrnuto koje VS Code nema. Sutradan su na main eventu također imali štand.
+[Komercijalni IDE](https://www.jetbrains.com/go/). Predstavili su dosta featurea. Zapele su mi za oko opcije *find type which implements interface* i obrnuto koje VS Code nema. Sutradan su na main eventu također imali štand.
 
 Inače, predavači na main tracku su gotovo isključivo koristili [VS Code](https://code.visualstudio.com/). Uključujući Campoya.
 
@@ -69,7 +69,7 @@ Zasad su dostupni [video zapisi](https://www.dotconferences.com/conference/dotgo
 
 ### Simulating a real-world system in Go - Sameer Ajmani
 
-Sameer je manager Go teama. Pokušao je objasniti concurrency u Golangu usporedbom sa stvarim svijetom. Gorutine, mutexi, kanali, buffered kanali. Izmjerio je koliko sve od toga zasebno donosi poboljšanja i koji su limiti. Pokazao je primjere i dao [source kod](https://github.com/Sajmani/dotgo/blob/master/coffee) za igranje. Ponajbolje predavanje.
+Sameer je manager Go teama. Pokušao je objasniti concurrency u Golangu usporedbom sa stvarnim svijetom. Gorutine, mutexi, kanali, buffered kanali. Izmjerio je koliko sve od toga zasebno donosi poboljšanja i koji su limiti. Pokazao je primjere i dao [source kod](https://github.com/Sajmani/dotgo/blob/master/coffee) za igranje. Ponajbolje predavanje.
 
 <img src="./photos/sameer.jpg" />
 
@@ -137,7 +137,7 @@ Može li Go u tom segmentu konkurirati postojećim .NET ili  Java frameworcima? 
 
 <img src="./photos/jaime.jpg" />
 
-**Fabio Raposelli** je napisao [alat](https://github.com/frapposelli/wwhrd) za provjeru licenci programa. Prođe kroz sve dependencie i njihove licence pa provjeri zadovoljavaju li zadana poslovna pravila (whitelist, blacklist).
+**Fabio Raposelli** je napisao [alat](https://github.com/frapposelli/wwhrd) za provjeru licenci programa. Prođe kroz sve dependencie i njihove licence pa provjeri zadovoljavaju li oni zadana poslovna pravila (whitelist, blacklist).
 
 <img src="./photos/fabio.jpg" />
 
@@ -151,7 +151,7 @@ Može li Go u tom segmentu konkurirati postojećim .NET ili  Java frameworcima? 
 
 <img src="./photos/ron.jpg" />
 
-**Laurent Leveque** priča o exposeanju Go za Andriod i Python.
+**Laurent Leveque** priča o exposeanju Goa za Andriod i Python.
 
 <img src="./photos/laurent.jpg" />
 
